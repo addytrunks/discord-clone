@@ -8,7 +8,7 @@ import {
   DialogFooter,
   DialogHeader,
   DialogTitle,
-} from "../ui/dialog";
+} from "@/components//ui/dialog";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
@@ -19,10 +19,12 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "../ui/form";
-import { Input } from "../ui/input";
-import { Button } from "../ui/button";
-import { Label } from "../ui/label";
+} from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
+import FileUpload from "@/components/file-upload";
+import axios from 'axios';
+import { useRouter } from "next/navigation";
 
 const formSchema = z.object({
   name: z
@@ -38,6 +40,7 @@ const formSchema = z.object({
 
 const InitialModal = () => {
   const [isMounted, setIsMounted] = useState(false);
+  const router = useRouter();
 
   useEffect(() => {
     setIsMounted(true);
@@ -54,7 +57,14 @@ const InitialModal = () => {
   const isLoading = form.formState.isSubmitting;
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
-    console.log(values);
+    try {
+      await axios.post('/api/servers', values);
+      form.reset();
+      router.refresh()
+      window.location.reload();
+    } catch (error) {
+      console.log(error)
+    }
   };
 
   if (!isMounted) return null;
@@ -76,7 +86,13 @@ const InitialModal = () => {
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
             <div className="space-y-8 p-6">
               <div className="flex items-center justify-center text-center">
-                {/* TODO: Image Upload */}
+                <FormField control={form.control} name="imageUrl" render={({field}) => (
+                    <FormItem>
+                        <FormControl>
+                            <FileUpload onChange={field.onChange} endpoint="serverImage" value={field.value} />
+                        </FormControl>
+                    </FormItem>
+                )}/>
               </div>
 
               <FormField

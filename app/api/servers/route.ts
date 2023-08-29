@@ -18,7 +18,7 @@ export const POST = async (req: Request) => {
         imageUrl,
         inviteCode: uuidv4(),
         // Instead the creating the profile first, and then creating the channel and member by using it's profileId, we can do it all in one step
-        channel: {
+        channels: {
           create: [{ name: "general", profileId: profile.id }],
         },
         members: {

@@ -60,7 +60,7 @@ model Member{
 
 enum ChannelType{
   TEXT
-  VOICE
+  VIDEO
   AUDIO
 }
 

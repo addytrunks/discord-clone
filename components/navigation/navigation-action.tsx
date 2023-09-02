@@ -12,9 +12,9 @@ const NavigationAction = () => {
     <>
       <ActionTooltip side="right" label="Add a server" align="center">
         <button className="group flex items-center" onClick={() => onOpen("createServer")}>
-          <div className="flex m-3 h-[48px] w-[48px] rounded-[24px] group-hover:rounded-[16px] transition-all overflow-hidden items-center justify-center bg-background dark:bg-neutral-600 group-hover:bg-emerald-500">
+          <div className="flex m-3 h-[48px] w-[48px] rounded-[24px] group-hover:rounded-[16px] transition-all overflow-hidden items-center justify-center bg-background dark:bg-[#272A3E] group-hover:bg-[#6DFD60]/80">
             <Plus
-              className="group-hover:text-white transition text-emerald-500"
+              className="group-hover:text-white transition text-[#6DFD60]/90"
               size={25}
             />
           </div>

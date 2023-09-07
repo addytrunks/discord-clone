@@ -36,3 +36,25 @@ export const PATCH = async (
     return new NextResponse("Internal Server Error", { status: 500 });
   }
 };
+
+export const DELETE = async (
+  req: Request,
+  { params }: { params: { serverId: string } }
+) => {
+  try {
+    const profile = await currentProfile();
+
+    if (!profile) return new NextResponse("Unauthorized", { status: 401 });
+
+    const server = await db.server.delete({
+      where: {
+        id: params.serverId,
+      },
+    });
+
+    return NextResponse.json(server, { status: 200 });
+  } catch (error) {
+    console.log("[SERVERID_DELETE]", error);
+    return new NextResponse("Internal Server Error", { status: 500 });
+  }
+};

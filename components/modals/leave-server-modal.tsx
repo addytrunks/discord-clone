@@ -9,25 +9,10 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components//ui/dialog";
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { z } from "zod";
 import { Button } from "@/components/ui/button";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 import { useModalStore } from "@/hooks/use-modal-store";
-
-const formSchema = z.object({
-  name: z
-    .string()
-    .min(2, {
-      message: "Server name must be at least 2 characters long",
-    })
-    .max(32),
-  imageUrl: z.string().min(1, {
-    message: "Please provide a valid image url",
-  }),
-});
 
 const LeaveServerModal = () => {
   const [isMounted, setIsMounted] = useState(false);
@@ -39,13 +24,6 @@ const LeaveServerModal = () => {
     setIsMounted(true);
   }, []);
 
-  const form = useForm({
-    resolver: zodResolver(formSchema),
-    defaultValues: {
-      name: "",
-      imageUrl: "",
-    },
-  });
 
   const { server } = data;
 

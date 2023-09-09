@@ -22,7 +22,7 @@ export default function RootLayout({
     <ClerkProvider>
       <html lang="en" suppressHydrationWarning>
         <body className={cn('bg-white dark:bg-[#0E111F]',inter.className)}>
-          <ThemeProvider attribute="class" defaultTheme="dark" enableSystem={false}  storageKey="discord-clone">
+          <ThemeProvider attribute="class" forcedTheme="dark" enableSystem={false} storageKey="discord-clone">
             <ModalProvider/>
             {children}
           </ThemeProvider>

@@ -43,7 +43,7 @@ const ServerChannel = ({ channel, server, role }: ServerChannelProps) => {
       >
         {channel.name}
       </p>
-      {channel.name !== "general" && role !== MemberRole.GUEST && (
+      {channel.name !== "general" && role === MemberRole.ADMIN && (
         <div className="ml-auto flex items-center gap-x-2">
           <ActionTooltip label="Edit">
             <Edit onClick={() => onOpen("editChannel",{server,channel})} className="w-4 h-4 hidden group-hover:block text-zinc-500 hover:text-zinc-600 dark:text-zinc-400 dark:hover:text-zinc-300 transition" />

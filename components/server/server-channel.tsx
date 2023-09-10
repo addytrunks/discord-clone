@@ -40,7 +40,7 @@ const ServerChannel = ({ channel, server, role }: ServerChannelProps) => {
       onClick={onClick}
       className={cn(
         "group px-2 py-2 rounded-md flex items-center gap-x-2 w-full hover:bg-zinc-700/10 transition mb-1",
-        params?.channelId && "bg-zinc-700/20 dark:bg-gray-700"
+        params?.channelId === channel.id && "bg-zinc-700/20 dark:bg-gray-700"
       )}
     >
       <Icon className="flex-shrink-0 w-4 h-4 text-zinc-500 dark:text-zinc-400" />

@@ -14,17 +14,17 @@ interface ChatHeaderProps {
 const ChatHeader = ({ name, serverId, imageUrl, type }: ChatHeaderProps) => {
   return (
     <div className="text-md font-semibold px-3 flex h-12 items-center border-neutral-200 dark:border-[#374151] border-b-2">
-        <MobileToggle serverId={serverId}/>
+      <MobileToggle serverId={serverId} />
       {type === "channel" && (
-        <Hash className="w-5 h-5 text-zinc-500 dark:text-white/50 mr-2"/>
+        <Hash className="w-5 h-5 text-zinc-500 dark:text-white/50 mr-2" />
       )}
       {type === "conversation" && (
-        <UserAvatar src={imageUrl} classname="h-6 w-6 mr-2"/>
+        <UserAvatar src={imageUrl} classname="h-6 w-6 mr-2" />
       )}
       <p className="font-semibold text-md dark:text-white text-black">{name}</p>
 
       <div className="ml-auto flex items-center">
-        <SocketIndicator/>
+        <SocketIndicator />
       </div>
     </div>
   );

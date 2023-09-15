@@ -6,6 +6,8 @@ import { z } from "zod";
 import { Form, FormControl, FormField, FormItem } from "../ui/form";
 import { Plus, Smile } from "lucide-react";
 import { Input } from "../ui/input";
+import qs from "query-string";
+import axios from "axios";
 
 interface ChatInputProps {
   apiUrl: string;
@@ -29,7 +31,16 @@ const ChatInput = ({ apiUrl, name, query, type }: ChatInputProps) => {
   const isLoading = form.formState.isSubmitting;
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
-    console.log(values);
+    try {
+      const url = qs.stringifyUrl({
+        url:apiUrl,
+        query
+      })
+
+      await axios.post(url, values);
+    } catch (error) {
+      console.log(error)
+    }
   };
 
   return (

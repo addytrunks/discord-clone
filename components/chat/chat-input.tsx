@@ -8,6 +8,7 @@ import { Plus, Smile } from "lucide-react";
 import { Input } from "../ui/input";
 import qs from "query-string";
 import axios from "axios";
+import { useModalStore } from "@/hooks/use-modal-store";
 
 interface ChatInputProps {
   apiUrl: string;
@@ -21,6 +22,7 @@ const formSchema = z.object({
 });
 
 const ChatInput = ({ apiUrl, name, query, type }: ChatInputProps) => {
+  const { onOpen } = useModalStore();
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -33,14 +35,14 @@ const ChatInput = ({ apiUrl, name, query, type }: ChatInputProps) => {
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     try {
       const url = qs.stringifyUrl({
-        url:apiUrl,
-        query
-      })
+        url: apiUrl,
+        query,
+      });
 
       await axios.post(url, values);
       form.reset();
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
   };
 
@@ -56,6 +58,7 @@ const ChatInput = ({ apiUrl, name, query, type }: ChatInputProps) => {
                 <div className="relative p-4 pb-6">
                   <button
                     type="button"
+                    onClick={() => onOpen("messageFile",{apiUrl,query})}
                     className="absolute top-7 left-8 h-[24px] w-[24px] bg-zinc-500 dark:bg-zinc-400 hover:bg-zinc-600 dark:hover:bg-zinc-300 transition rounded-full p-1 flex items-center justify-center"
                   >
                     <Plus className="text-white dark:text-[#313338]" />
@@ -70,7 +73,7 @@ const ChatInput = ({ apiUrl, name, query, type }: ChatInputProps) => {
                   />
                   <div className="absolute top-7 right-8">
                     {/* Emoji pic goes here */}
-                    <Smile/>
+                    <Smile />
                   </div>
                 </div>
               </FormControl>
